@@ -1,13 +1,26 @@
 <?php
-use router\routing;
-use router\routing\Test;
+use App\routing\Router;
+use App\db\database;
+use App\db\DbCreate;
 
-$dir = __DIR__ . '/app';
+// $dir = __DIR__ . '/app';
 
-$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
-foreach ($files as $file) {
-    if ($file->isFile() && $file->getExtension() === 'php') {
-        require_once $file->getPathname();
-    }
+// $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+// foreach ($files as $file) {
+//     if ($file->isFile() && $file->getExtension() === 'php') {
+//         require_once $file->getPathname();
+//     }
+// }
+$appDir = __DIR__ . DIRECTORY_SEPARATOR . 'app';
+
+// Loop through all PHP files in the app folder
+foreach (glob($appDir . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*.php') as $file) {
+    include_once $file;
 }
-$obj = new Test();
+$obj = new Router();
+$obj->ReqHandle();
+$db = new DbCreate(["host" => "localhost", "user" => "root", "password" => "", "database" => "mysql"]);
+if(!$db->Exists()) {
+    $db->Create();
+    $db->Create();
+}
