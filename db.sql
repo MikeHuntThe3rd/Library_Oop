@@ -28,17 +28,17 @@ CREATE TABLE IF NOT EXISTS `genre` (
 CREATE TABLE IF NOT EXISTS `books` (
     `ISBN` VARCHAR(13) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
-    `kep` BLOB NOT NULL,
+    `img` BLOB NOT NULL,
     `writer` VARCHAR(40),
     `lang` VARCHAR(30),
     `price` INT(10),
-    `kiado_id` INT NOT NULL,
-    `kat_id` INT NOT NULL,
+    `publisher_id` INT NOT NULL,
+    `genre_id` INT NOT NULL,
     PRIMARY KEY(`ISBN`),
-    FOREIGN KEY (`kiado_id`) REFERENCES `publisher`(`id`)
+    FOREIGN KEY (`publisher_id`) REFERENCES `publisher`(`id`)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (`kat_id`) REFERENCES `genre`(`id`)
+    FOREIGN KEY (`genre_id`) REFERENCES `genre`(`id`)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) ENGINE=InnoDB
