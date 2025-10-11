@@ -2,16 +2,9 @@
 
 namespace App\routing;
 
-use App\requests\Querys;
+use App\Controllers\WRITERcontroller;
 use App\Controllers\BOOKcontroller;
-use App\Views\Render;
 class Router{
-    //  public function __construct(){
-    //     $obj = new Querys();
-    //     $img =  $obj->AllTableContents()[0];
-    //     Render::IncludeFile("BOOK/new");
-    //     echo '<img src="data:image/png;base64,'.base64_encode($img['img']).'"/>';
-    // }
     public function ReqHandle(){
         $MethodType = strtoupper($_SERVER["REQUEST_METHOD"]);
         $ReqURI = $_SERVER["REQUEST_URI"];
@@ -32,14 +25,27 @@ class Router{
         }
     }
     public function GETreq($URI){
+        $data = $this->FilterPostKeys($_POST);
+        $id = $data["ISBN"] ?? null;
         switch ($URI){
+            case "/":
+                header('location: /book');
+                break;
             case "/book":
                 $book = new BOOKcontroller();
                 $book->index();
                 break;
-            case "/add":
+            case "/book/add":
                 $book = new BOOKcontroller();
                 $book->add();
+                break;
+            case "/writer":
+                $writer = new WRITERcontroller();
+                $writer->index();
+                break;
+            case "/writer/add":
+                $writer = new WRITERcontroller();
+                $writer->add();
                 break;
             default:
                 echo "no GET uri matched the input";
@@ -50,9 +56,43 @@ class Router{
         $data = $this->FilterPostKeys($_POST);
         $id = $data["id"] ?? null;
         switch ($ReqURI){
+            //books
+            case "/search":
+                $ConditionalIndex = new BOOKcontroller();
+                $ConditionalIndex->index($ConditionalIndex->Search($data["input"]));
+                break;
             case "/book":
                 $sbook = new BOOKcontroller();
                 $sbook->SavePOSTData($data);
+                break;
+            case "/book/Sedit":
+                $sbook = new BOOKcontroller();
+                $sbook->EditWithPOSTData($data, $id);
+                break;
+            case "/book/edit":
+                $book = new BOOKcontroller();
+                $book->edit($id);
+                break;
+            case "/book/delete":
+                $book = new BOOKcontroller();
+                $book->delete($id);
+                break;
+            //writers
+            case "/writer":
+                $writer = new WRITERcontroller();
+                $writer->savePostData($data);
+                break;
+            case "/writer/edit":
+                $writer = new WRITERcontroller();
+                $writer->edit($id);
+                break;
+            case "/writer/delete":
+                $writer = new WRITERcontroller();
+                $writer->delete($id);
+                break;
+            case "/writer/Sedit":
+                $writer = new WRITERcontroller();
+                $writer->editWithPostData($id, $data);
                 break;
             default:
                 echo "no POST uri matched the input";

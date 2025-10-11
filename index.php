@@ -13,14 +13,13 @@ use App\db\DbCreate;
 // }
 $appDir = __DIR__ . DIRECTORY_SEPARATOR . 'app';
 
-// Loop through all PHP files in the app folder
 foreach (glob($appDir . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*.php') as $file) {
     include_once $file;
 }
-$obj = new Router();
-$obj->ReqHandle();
 $db = new DbCreate(["host" => "localhost", "user" => "root", "password" => "", "database" => "mysql"]);
 if(!$db->Exists()) {
     $db->Create();
-    $db->Create();
 }
+$obj = new Router();
+$obj->ReqHandle();
+
