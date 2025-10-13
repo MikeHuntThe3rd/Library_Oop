@@ -8,7 +8,7 @@ echo <<<HTML
     <title>Book Catalog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="css/search_bar.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/writer.css"/>
 </head>
 <body>
     <div class="button-bar">
@@ -29,23 +29,27 @@ HTML;
 
 foreach ($writers as $writer) {
     echo <<<HTML
+        <div class="writer-table-wrapper">
             <table>
                 <tr>
                     <th>{$writer['writer']}</th>
                     <th>{$writer['bio']}</th>
-                    <th><form method="post" action="/writer/edit"> 
-                            <input type="hidden" name="id" value="{$writer['id']}">
-                            <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                        </form>
-                    </th>
                     <th>
-                        <form method="post" action="/writer/delete"> 
+                        <div class="writer-actions right">
+    
+                            <form method="post" action="/writer/edit"> 
                                 <input type="hidden" name="id" value="{$writer['id']}">
-                                <button type="submit"><i class="fa-solid fa-trash"></i></button>
-                        </form>
+                                <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                            </form>
+                            <form method="post" action="/writer/delete"> 
+                                    <input type="hidden" name="id" value="{$writer['id']}">
+                                    <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
                     </th>
                 </tr>
-            <table>
+            </table>
+        </div>  
            
            
 HTML;

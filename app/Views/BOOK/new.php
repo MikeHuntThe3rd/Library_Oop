@@ -1,6 +1,19 @@
 <?php
 echo <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="../css/book_edit.css"/>
+</head>
+<body>
+HTML;
+echo <<<HTML
 <form method="post" action="/book">
+    <h1>
+        Új könyv hozzáadása
+    </h1>
     <fieldset>
         <label for="ISBN">ISBN</label>
         <input type="number" name="ISBN" id="ISBN"><br>
