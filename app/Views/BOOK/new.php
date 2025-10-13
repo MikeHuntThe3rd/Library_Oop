@@ -1,6 +1,19 @@
 <?php
 echo <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="../css/book_edit.css"/>
+</head>
+<body>
+HTML;
+echo <<<HTML
 <form method="post" action="/book">
+    <h1>
+        Új könyv hozzáadása
+    </h1>
     <fieldset>
         <label for="ISBN">ISBN</label>
         <input type="number" name="ISBN" id="ISBN"><br>
@@ -16,9 +29,16 @@ echo <<<HTML
             <p>Drag & drop a file here, or click to select</p>
         </div>
         <br>
-
-        <label for="writer">writer</label>
-        <input type="text" pattern=".*\D.*" name="writer" id="writer"><br>
+        <label for="writer">writer:</label>
+        <select name="writer" id="writer">
+HTML;
+foreach($writer as $curr){
+    echo <<<HTML
+        <option value="{$curr['writer']}">{$curr['writer']}</option>
+    HTML;
+}
+echo <<<HTML
+        </select><br>
 
         <label for="lang">lang</label>
         <input type="text" pattern=".*\D.*" name="lang" id="lang"><br>
@@ -30,7 +50,7 @@ echo <<<HTML
         <input type="text" pattern=".*\D.*" name="publisher" id="publisher"><br>
 
         <label for="genre">genre</label>
-        <input type="text" pattern=".*\D.*"  name="genre" id="genre"><br>
+        <input type="text" pattern=".*\D.*" name="genre" id="genre"><br>
 
         <hr>
         <button type="submit" name="btn-save">

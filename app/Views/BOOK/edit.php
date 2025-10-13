@@ -1,36 +1,66 @@
 <?php
 echo <<<HTML
-        <form method='post' action='/book/Sedit'>
-            <fieldset>
-                <input type="hidden" name="id" value="{$row['currid']}">
-                <label for="name">ISBN</label>
-                <input type="text" name="ISBN" id="ISBN" value="{$row['ISBN']}"><br>
-                <label for="name">name</label>
-                <input type="text" name="name" id="name"  value="{$row['name']}"><br>
-                <label for="name">img</label>
-                <input type="text" name="img" id="img"><br>
-                <input type="file" id="filePicker" style="display:none;">
-                <div id="drop-area" style="border:2px dashed #ccc; padding:20px; text-align:center; cursor:pointer;">
-                    <p>Drag & drop a file here, or click to select</p>
-                </div><br>
-                <label for="name">writer</label>
-                <input type="text" name="writer" id="writer" value="{$row['writer']}"><br>
-                <label for="name">lang</label>
-                <input type="text" name="lang" id="lang" value="{$row['lang']}"><br>
-                <label for="name">price</label>
-                <input type="text" name="price" id="price" value="{$row['price']}"><br>
-                <label for="name">publisher</label>
-                <input type="text" name="publisher" id="publisher" value="{$row['publisher']}"><br>
-                <label for="name">genre</label>
-                <input type="text" name="genre" id="genre" value="{$row['genre']}"><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="../css/book_edit.css"/>
+</head>
+<body>
+HTML;
+echo <<<HTML
+    <form method='post' action='/book/Sedit'>
+        <fieldset>
+            <input type="hidden" name="id" value="{$row['currid']}">
+
+            <label for="ISBN">ISBN</label>
+            <input type="number" name="ISBN" id="ISBN" value="{$row['ISBN']}"><br>
+
+            <label for="name">Name</label>
+            <input type="text" pattern=".*\D.*" name="name" id="name" value="{$row['name']}"><br>
+
+            <label for="img">Img</label>
+            <input type="text" name="img" id="img"><br>
+
+            <input type="file" id="filePicker" style="display:none;">
+            <div id="drop-area" style="border:2px dashed #ccc; padding:20px; text-align:center; cursor:pointer;">
+                <p>Drag & drop a file here, or click to select</p>
+            </div><br>
+
+            <label for="writer">writer:</label>
+            <select name="writer" id="writer">
+HTML;
+foreach($row["writers"] as $curr){
+    echo <<<HTML
+        <option value="{$curr['writer']}">{$curr['writer']}</option>
+    HTML;
+}
+echo <<<HTML
+                </select><br>
+
+                <label for="lang">Lang</label>
+                <input type="text" pattern=".*\D.*" name="lang" id="lang" value="{$row['lang']}"><br>
+
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price" value="{$row['price']}"><br>
+
+                <label for="publisher">Publisher</label>
+                <input type="text" pattern=".*\D.*" name="publisher" id="publisher" value="{$row['publisher']}"><br>
+
+                <label for="genre">Genre</label>
+                <input type="text" pattern=".*\D.*" name="genre" id="genre" value="{$row['genre']}"><br>
+
                 <hr>
+
                 <button type="submit" name="btn-save">
-                    <i class="fa fa-save"></i>&nbsp;Mentés
+                    <i class="fa fa-save"></i>Mentés
                 </button>
-                <a href="/book"><i class="fa fa-cancel">                    
-                    </i>&nbsp;Mégse
+                <a href="/book">
+                    <i class="fa fa-cancel"></i>Mégse
                 </a>
             </fieldset>
         </form>
     <script src="/js/drag_drop.js" defer></script>
-    HTML;
+</body>
+HTML;

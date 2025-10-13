@@ -15,7 +15,7 @@ class DbCreate extends Database{
     }
     public function Create(){
         $this->getPdo()->setAttribute(PDO::MYSQL_ATTR_MULTI_STATEMENTS, true);
-        $this->getPdo()->exec(file_get_contents("library.sql"));
+        $this->getPdo()->exec(file_get_contents("db.sql"));
         $this->getPdo()->setAttribute(PDO::MYSQL_ATTR_MULTI_STATEMENTS, false);
     }
     public function Fill(){

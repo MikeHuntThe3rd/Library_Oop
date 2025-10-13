@@ -2,9 +2,8 @@
 
 namespace App\routing;
 
-use App\requests\Querys;
+use App\Controllers\WRITERcontroller;
 use App\Controllers\BOOKcontroller;
-use App\Views\Render;
 class Router{
     public function ReqHandle(){
         $MethodType = strtoupper($_SERVER["REQUEST_METHOD"]);
@@ -40,6 +39,14 @@ class Router{
                 $book = new BOOKcontroller();
                 $book->add();
                 break;
+            case "/writer":
+                $writer = new WRITERcontroller();
+                $writer->index();
+                break;
+            case "/writer/add":
+                $writer = new WRITERcontroller();
+                $writer->add();
+                break;
             default:
                 echo "no GET uri matched the input";
                 break;
@@ -49,10 +56,10 @@ class Router{
         $data = $this->FilterPostKeys($_POST);
         $id = $data["id"] ?? null;
         switch ($ReqURI){
+            //books
             case "/search":
                 $ConditionalIndex = new BOOKcontroller();
                 $ConditionalIndex->index($ConditionalIndex->Search($data["input"]));
-                //$ConditionalIndex->Search($data["input"]);
                 break;
             case "/book":
                 $sbook = new BOOKcontroller();
@@ -60,7 +67,7 @@ class Router{
                 break;
             case "/book/Sedit":
                 $sbook = new BOOKcontroller();
-                $sbook->EditWithPOSTData($data);
+                $sbook->EditWithPOSTData($data, $id);
                 break;
             case "/book/edit":
                 $book = new BOOKcontroller();
@@ -69,6 +76,23 @@ class Router{
             case "/book/delete":
                 $book = new BOOKcontroller();
                 $book->delete($id);
+                break;
+            //writers
+            case "/writer":
+                $writer = new WRITERcontroller();
+                $writer->savePostData($data);
+                break;
+            case "/writer/edit":
+                $writer = new WRITERcontroller();
+                $writer->edit($id);
+                break;
+            case "/writer/delete":
+                $writer = new WRITERcontroller();
+                $writer->delete($id);
+                break;
+            case "/writer/Sedit":
+                $writer = new WRITERcontroller();
+                $writer->editWithPostData($id, $data);
                 break;
             default:
                 echo "no POST uri matched the input";

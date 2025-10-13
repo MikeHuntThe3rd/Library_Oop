@@ -12,12 +12,10 @@ echo <<<HTML
 </head>
 <body>
     <div class="button-bar">
-        <!-- <form class="add" method="post" action="/book/add">
-            <button type="submit" class="add-btn">
-                <i class="fa-solid fa-plus"></i> ADD
-            </button>
-        </form> -->
-        <a href="/book/add" class="add"><i class="fa-solid fa-plus"></i> ADD</a>
+        <div>
+            <a href="/book/add" class="add"><i class="fa-solid fa-plus"></i> ADD</a><br><br>
+            <a href="/writer" class="add">WRITERS</a>
+        </div>
         <button id="backToTop">↑</button>
     </div>
     <div class="container">
@@ -30,10 +28,10 @@ echo <<<HTML
         </form>
         <div class="book-grid">
 HTML;
-
 foreach ($books as $book) {
     $base64Image = base64_encode($book["img"]);
     $altText = htmlspecialchars($book["name"]);
+    $bio = json_encode($book['bio']);
     echo <<<HTML
             <div class="book-card">
                 <div class="book-image">
@@ -79,6 +77,7 @@ foreach ($books as $book) {
                             <i class="fa-solid fa-trash"></i> DELETE
                         </button>
                     </form>
+                    <button class="btn" onclick='popup($bio)'>text</button>
                 </div>
             </div>
 HTML;
@@ -92,6 +91,7 @@ echo <<<HTML
     </div>
     <script src="/js/script.js"></script>
     <script src="/js/ScrollToTop.js"></script>
+    <script src="/js/bio.js"></script>
 </body>
 </html>
 HTML;
