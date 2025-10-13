@@ -23,6 +23,9 @@ label {
     margin: 15px 0 5px;
     color: #fff;
 }
+#valaszto{
+    color: black;
+}
 
 input[type="text"],
 input[type="number"],

@@ -77,7 +77,7 @@ foreach ($books as $book) {
                             <i class="fa-solid fa-trash"></i> DELETE
                         </button>
                     </form>
-                    <button class="btn" onclick='popup($bio)'>text</button>
+                    <button class="btn" onclick='popup($bio)'><i class="fa-solid fa-book"></i> Bio</button>
                 </div>
             </div>
 HTML;

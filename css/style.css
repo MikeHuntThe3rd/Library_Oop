@@ -134,6 +134,10 @@ h1 {
     z-index: 10;
 }
 
+#valaszto{
+    color: black;
+}
+
 /* Buttons style */
 .book-buttons .btn,
 .book-buttons a,

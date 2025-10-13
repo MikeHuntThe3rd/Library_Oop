@@ -28,7 +28,7 @@ class BOOKcontroller extends Controller {
         $row = $this->query->SingleRow("books", "ISBN", $id);
         $row["img"] = "";
         $this->query->InsertQuery("DELETE FROM books WHERE ISBN = :id", ["id" => $id ]);
-        self::ForeignTableCleanup($row);
+        //self::ForeignTableCleanup($row);
         header('location: /book');
     }
     public function edit($id){
@@ -42,19 +42,16 @@ class BOOKcontroller extends Controller {
     public function SavePOSTData($data){
         foreach($data as $key => $str){
             if(empty($str)){
-                self::index();
-                echo "empty";
+                header('location: /book');
                 return;
             }
         }
         if(!file_exists($data["img"])){
-            echo "didnt find img";
-            self::index();
+            header('location: /book');
             return;
         }
         if(in_array($data["ISBN"], $this->query->SingleTableContents())){
-            echo "isbn exists";
-            self::index();
+            header('location: /book');
             return;
         }
         $data["genre"] = self::GetForeignTableId("genre", $data);
@@ -64,9 +61,8 @@ class BOOKcontroller extends Controller {
                 VALUES (:ISBN, :name, :img, :lang, :price, :publisher, :genre, :writer);";
         $img = file_get_contents($data["img"]);
         $data["img"] = $img;
-        echo "end";
         $this->query->InsertQuery($sql, $data);
-        self::index();
+        header('location: /book');
     }
     public function EditWithPOSTData($data, $id){
         $row = $data;

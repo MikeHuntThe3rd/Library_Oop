@@ -16,7 +16,7 @@ echo <<<HTML
     </h1>
     <fieldset>
         <label for="ISBN">ISBN</label>
-        <input type="number" name="ISBN" id="ISBN"><br>
+        <input type="number" pattern="^-?\d{13}$" name="ISBN" id="ISBN"><br>
 
         <label for="name">name</label>
         <input type="text" pattern=".*\D.*" name="name" id="name"><br>
@@ -34,7 +34,7 @@ echo <<<HTML
 HTML;
 foreach($writer as $curr){
     echo <<<HTML
-        <option value="{$curr['writer']}">{$curr['writer']}</option>
+        <option id="valaszto" value="{$curr['writer']}">{$curr['writer']}</option>
     HTML;
 }
 echo <<<HTML

@@ -33,7 +33,7 @@ echo <<<HTML
 HTML;
 foreach($row["writers"] as $curr){
     echo <<<HTML
-        <option value="{$curr['writer']}">{$curr['writer']}</option>
+        <option id="valaszto" value="{$curr['writer']}">{$curr['writer']}</option>
     HTML;
 }
 echo <<<HTML
